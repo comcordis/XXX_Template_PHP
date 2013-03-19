@@ -188,7 +188,7 @@ class XXX_Template
 		else
 		{
 			$result = false;
-			trigger_error('Invalid parameter $template "' . $template . '"');
+			trigger_error('Invalid parameter $template "' . $template . '"', E_USER_WARNING);
 		}
 		
 		if (XXX_Type::isValue($cacheSubPath))
@@ -198,7 +198,7 @@ class XXX_Template
 		else
 		{
 			$result = false;
-			trigger_error('Invalid parameter $cacheSubPath "' . $cacheSubPath . '"');
+			trigger_error('Invalid parameter $cacheSubPath "' . $cacheSubPath . '"', E_USER_WARNING);
 		}
 		
 		if (XXX_Type::isPositiveInteger($composedBlocksMaximumLifeTime))
@@ -208,7 +208,7 @@ class XXX_Template
 		else
 		{
 			$result = false;
-			trigger_error('Invalid parameter $composedBlocksMaximumLifeTime "' . $composedBlocksMaximumLifeTime . '"');
+			trigger_error('Invalid parameter $composedBlocksMaximumLifeTime "' . $composedBlocksMaximumLifeTime . '"', E_USER_WARNING);
 		}
 		
 		return $result;
@@ -260,7 +260,7 @@ class XXX_Template
 		else
 		{
 			$result = false;
-			trigger_error('Block "' . $blockName . '" not composed yet!');
+			trigger_error('Block "' . $blockName . '" not composed yet!', E_USER_WARNING);
 		}
 		
 		
@@ -333,20 +333,20 @@ class XXX_Template
 				}
 				elseif ($this->settings['ignoreMissingBlocks'])
 				{
-					trigger_error('Missing block: "'.$blockName.'"');
+					trigger_error('Missing block: "'.$blockName.'"', E_USER_WARNING);
 					
 					return; // No need to continue...
 				}
 				else
 				{
 					$result = false;
-					trigger_error('Missing block: "'.$blockName.'"');
+					trigger_error('Missing block: "'.$blockName.'"', E_USER_WARNING);
 				}
 				
 				if (!XXX_Type::isValue($content))
 				{
 					$result = false;
-					trigger_error('Empty/Missing block: "'.$blockName.'"');
+					trigger_error('Empty/Missing block: "'.$blockName.'"', E_USER_WARNING);
 				}
 				
 				$content = $this->replaceTemplateVariables($content, $blockName);
@@ -611,12 +611,12 @@ class XXX_Template
 			if (XXX_Type::isEmpty($path))
 			{
 				$fileContent = false;
-				trigger_error('Invalid parameter $path "' . $path . '"');
+				trigger_error('Invalid parameter $path "' . $path . '"', E_USER_WARNING);
 			}
 			if (!XXX_Array::hasKey($this->paths, $pathType))
 			{
 				$fileContent = false;
-				trigger_error('Invalid parameter $pathType "' . $pathType . '"');
+				trigger_error('Invalid parameter $pathType "' . $pathType . '"', E_USER_WARNING);
 			}
 			
 			$path = $this->locateFile($path, $pathType);
@@ -648,14 +648,14 @@ class XXX_Template
 						}
 						elseif ($this->settings['ignoreMissingFiles'])
 						{
-							trigger_error('Missing file: "' . $path . '", nowhere to be found or unreadable');
+							trigger_error('Missing file: "' . $path . '", nowhere to be found or unreadable', E_USER_WARNING);
 							
 							$fileContent = false;
 						}
 						else
 						{
 							$fileContent = false;
-							trigger_error('Invalid parameter $path "' . $path . '", nowhere to be found or unreadable');
+							trigger_error('Invalid parameter $path "' . $path . '", nowhere to be found or unreadable', E_USER_WARNING);
 						}
 					}
 				}
@@ -723,11 +723,11 @@ class XXX_Template
 				{					
 					if ($this->settings['ignoreMissingFiles'] && $path !== $this->template)
 					{
-						trigger_error('Missing file: "' . $path . '", nowhere to be found or unreadable');			
+						trigger_error('Missing file: "' . $path . '", nowhere to be found or unreadable', E_USER_WARNING);			
 					}
 					else
 					{
-						trigger_error('Invalid parameter $path "' . $path . '", nowhere to be found or unreadable');
+						trigger_error('Invalid parameter $path "' . $path . '", nowhere to be found or unreadable', E_USER_WARNING);
 					}
 					
 					$path = false;
@@ -750,7 +750,7 @@ class XXX_Template
 				{					
 					if ($templateFile['template'] === $this->template)
 					{
-						trigger_error('Recursion detected! In file: "' . $path . '"');
+						trigger_error('Recursion detected! In file: "' . $path . '"', E_USER_ERROR);
 					}
 					else
 					{
@@ -1141,11 +1141,11 @@ class XXX_Template
 							}
 							elseif ($this->settings['ignoreMissingFiles'])
 							{
-								trigger_error('Missing file: "' . $templateCacheAbsoluteFile . '", nowhere to be found or unreadable');
+								trigger_error('Missing file: "' . $templateCacheAbsoluteFile . '", nowhere to be found or unreadable', E_USER_WARNING);
 							}
 							else
 							{
-								trigger_error('Invalid variable $templateCacheAbsoluteFile "' . $templateCacheAbsoluteFile . '", nowhere to be found or unreadable');
+								trigger_error('Invalid variable $templateCacheAbsoluteFile "' . $templateCacheAbsoluteFile . '", nowhere to be found or unreadable', E_USER_WARNING);
 							}
 						}
 						else
@@ -1233,11 +1233,11 @@ class XXX_Template
 							}
 							elseif ($this->settings['ignoreMissingFiles'])
 							{
-								trigger_error('Missing file: "' . $absoluteFile . '", nowhere to be found or unreadable');			
+								trigger_error('Missing file: "' . $absoluteFile . '", nowhere to be found or unreadable', E_USER_WARNING);			
 							}
 							else
 							{
-								trigger_error('Invalid variable $absoluteFile "' . $absoluteFile . '", nowhere to be found or unreadable');
+								trigger_error('Invalid variable $absoluteFile "' . $absoluteFile . '", nowhere to be found or unreadable', E_USER_WARNING);
 							}
 						}
 						else
@@ -1318,12 +1318,12 @@ class XXX_Template
 						}
 						elseif ($this->settings['ignoreMissingFiles'])
 						{
-							trigger_error('Missing file: "' . $absoluteFile . '", nowhere to be found or unreadable');
+							trigger_error('Missing file: "' . $absoluteFile . '", nowhere to be found or unreadable', E_USER_WARNING);
 						}
 						else
 						{
 							$result = false;
-							trigger_error('Invalid parameter $blockName "' . $blockName . '" - "' . $absoluteFile . '", nowhere to be found or unreadable');
+							trigger_error('Invalid parameter $blockName "' . $blockName . '" - "' . $absoluteFile . '", nowhere to be found or unreadable', E_USER_WARNING);
 						}
 					}
 					else
