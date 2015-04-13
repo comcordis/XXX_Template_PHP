@@ -1,0 +1,6 @@
+project:XXX_Template_PHP
+deployEnvironment:development
+checkout:master
+commitHash:a315c1f58eb0ecdb0a5df4d9aae6163a1605bbe2
+timestamp:2015-04-13T09:46:15Z
+deployer:operations
